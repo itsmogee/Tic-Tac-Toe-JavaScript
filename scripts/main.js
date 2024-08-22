@@ -5,9 +5,21 @@ const gameBoard = (() => {
 })();
 
 // Player General object factory function
-const player = (name) => {
+const player = (playerName) => {
+  const name = playerName;
   console.log(`Player ${name}`);
-  return { name };
+
+  let score = 0;
+
+  const getPlayerName = () => name;
+  const getScore = () => score;
+  const updateScore = () => score++;
+
+  const play = (x, y) => {
+    return { x, y };
+  };
+
+  return { getPlayerName, play, updateScore, getScore };
 };
 
 const gameFlow = (() => {
