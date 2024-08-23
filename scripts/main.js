@@ -7,6 +7,28 @@ const gameBoard = (() => {
     ["7", "8", "9"],
   ];
 
+  const checkWinCondition = () => {
+    if (board[0][0] === board[0][1] && board[0][2] === board[0][0]) {
+      console.log("Winner");
+      return true;
+    } else if (board[0][0] === board[1][0] && board[2][0] === board[0][0]) {
+      console.log("Winner");
+      return true;
+    } else if (board[0][0] === board[1][1] && board[2][2] === board[0][0]) {
+      console.log("Winner");
+      return true;
+    } else if (board[0][0] === board[0][1] && board[0][2] === board[0][0]) {
+      console.log("Winner");
+      return true;
+    } else if (board[0][1] === board[1][1] && board[2][1] === board[0][1]) {
+      console.log("Winner");
+      return true;
+    } else if (board[1][0] === board[1][1] && board[1][2] === board[1][0]) {
+      console.log("Winner");
+      return true;
+    }
+  };
+
   const clearBoard = () => {
     board = [
       ["1", "2", "3"],
@@ -19,14 +41,14 @@ const gameBoard = (() => {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
         const element = board[i][j];
-        console.log(element);
         if (board[i][j] === playerMove) {
           board[i][j] = playerChar;
           console.log("Done");
-          return;
+          return true;
         }
       }
     }
+    return false;
   };
 
   const showBoard = () => {
@@ -76,7 +98,7 @@ const gameBoard = (() => {
     return moveList;
   };
 
-  return { clearBoard, updateMove, showBoard, getMoves };
+  return { clearBoard, updateMove, showBoard, getMoves, checkWinCondition };
 })();
 
 // Player General object factory function
