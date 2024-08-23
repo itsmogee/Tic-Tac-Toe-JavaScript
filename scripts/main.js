@@ -80,21 +80,22 @@ const gameBoard = (() => {
 })();
 
 // Player General object factory function
-const player = (playerName) => {
+const player = (playerName, character) => {
   const name = playerName;
-  console.log(`Player ${name}`);
+  const playerChar = character;
+  let isTurn = false;
 
-  let score = 0;
+  console.log(`Player ${name} is using : ${playerChar}`);
 
   const getPlayerName = () => name;
-  const getScore = () => score;
-  const updateScore = () => score++;
 
-  const play = (x, y) => {
-    return { x, y };
+  const play = () => {
+    let x = prompt("Make your move : ");
+    console.log(`Your move is ${x}`);
+    return x;
   };
 
-  return { getPlayerName, play, updateScore, getScore };
+  return { getPlayerName, play, isTurn, playerChar };
 };
 
 // Score card object
