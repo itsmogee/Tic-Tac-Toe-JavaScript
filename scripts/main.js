@@ -126,6 +126,22 @@ const scoreCard = (() => {
   console.log("Score Card");
   let playerOneScore = 0;
   let playerTwoScore = 0;
+
+  const updateScores = (player1Score, player2Score) => {
+    playerOneScore += player1Score;
+    playerTwoScore += player2Score;
+  };
+
+  const getScores = () => {
+    return { player1: playerOneScore, player2: playerTwoScore };
+  };
+
+  const resetScores = () => {
+    playerOneScore = 0;
+    playerTwoScore = 0;
+  };
+
+  return { updateScores, getScores, resetScores };
 })();
 
 const gameFlow = (() => {
