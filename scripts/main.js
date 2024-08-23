@@ -145,9 +145,92 @@ const scoreCard = (() => {
 })();
 
 const gameFlow = (() => {
-  const player1 = player("1");
-  const player2 = player("2");
-  console.log("Game Flow");
+  const player1 = player("1", "O");
+  const player2 = player("2", "X");
+  console.log("Welcome to Tic-Tac-Toe");
 
-  const startGame = () => {};
+  const initializeGame = () => {
+    console.log("Initializing Game");
+    player2.isTurn = false;
+    player1.isTurn = true;
+    gameBoard.clearBoard();
+  };
+
+  const getPlayerTurn = () => {
+    let currentPlayer;
+    if (player1.isTurn) {
+      console.log("It is Player 1's Turn");
+      currentPlayer = player1;
+    } else {
+      console.log("It is Player 2's Turn");
+      currentPlayer = player2;
+    }
+    return currentPlayer;
+  };
+
+  const showGameState = () => {
+    const currentPlayer = getPlayerTurn();
+    console.log("The state of the board is : ");
+    gameBoard.showBoard();
+
+    // Check valid move list
+    const moves = gameBoard.getMoves();
+    console.log(`The psossible moves are : `);
+    console.log(moves);
+
+    //Present a valid set of move options
+    //gameBoard.showBoard();
+
+    return currentPlayer;
+  };
+
+  const swapTurns = () => {
+    player1.isTurn = !player1.isTurn;
+    player2.isTurn = !player2.isTurn;
+  };
+
+  const playMove = () => {
+    // Show Game State
+    const currentPlayer = showGameState();
+
+    // player will choose
+    let move = false;
+    let choice;
+    while (!move) {
+      choice = currentPlayer.play();
+      if (choice === "q") {
+        console.log("Quit");
+        return choice;
+      }
+      move = gameBoard.updateMove(choice, currentPlayer.playerChar);
+    }
+    gameBoard.showBoard();
+    swapTurns();
+  };
+
+  const startGame = () => {
+    // initialize the game
+    initializeGame();
+
+    let numMoves = 0;
+    let move = "";
+    // main game loop
+    while (numMoves < 9) {
+      if (numMoves > 3) {
+        gameBoard.checkWinCondition();
+      }
+      move = playMove();
+      if (move === "q") {
+        return;
+      }
+      numMoves += 1;
+    }
+
+    // update score cards
+  };
+
+  return { startGame, initializeGame };
 })();
+
+gameFlow.initializeGame();
+gameFlow.startGame();
