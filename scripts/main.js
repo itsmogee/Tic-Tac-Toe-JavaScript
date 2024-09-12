@@ -128,7 +128,6 @@ const player = (playerName, character) => {
 };
 
 // Score card object
-
 const scoreCard = (() => {
   console.log("Score Card");
   let playerOneScore = 0;
@@ -177,12 +176,10 @@ const gameFlow = (() => {
 
   const showGameState = () => {
     const currentPlayer = getPlayerTurn();
-    console.log("The state of the board is : ");
-    gameBoard.showBoard();
 
     // Check valid move list
     const moves = gameBoard.getMoves();
-    console.log(`The psossible moves are : `);
+    console.log(`The possible moves are : `);
     console.log(moves);
 
     //Present a valid set of move options
@@ -206,38 +203,61 @@ const gameFlow = (() => {
     while (!move) {
       choice = currentPlayer.play();
       if (choice === "q") {
-        console.log("Quit");
+        console.log("Quitting game");
         return choice;
       }
       move = gameBoard.updateMove(choice, currentPlayer.playerChar);
     }
     gameBoard.showBoard();
+
+    const winner = gameBoard.checkWinCondition();
+    if (winner) {
+      if (currentPlayer === player1) {
+        scoreCard.updateScores(1, 0);
+      } else {
+        scoreCard.updateScores(0, 1);
+      }
+      alert(`Player ${currentPlayer.getPlayerName()} is the winner`);
+      return "W";
+    }
+
     swapTurns();
   };
 
-  const startGame = () => {
+  const startRound = () => {
     // initialize the game
     initializeGame();
+    gameBoard.showBoard();
 
     let numMoves = 0;
     let move = "";
     // main game loop
     while (numMoves < 9) {
-      if (numMoves > 3) {
-        gameBoard.checkWinCondition();
-      }
       move = playMove();
       if (move === "q") {
         return;
       }
+      if (move === "W") {
+        console.log("Game Ended");
+        return;
+      }
       numMoves += 1;
     }
+    alert("Game ended in a tie");
 
     // update score cards
   };
 
-  return { startGame, initializeGame };
+  const startGame = () => {
+    const numRounds = prompt("How many rounds would you like to play ?");
+
+    for (let i = 0; i < numRounds; i++) {
+      gameFlow.startRound();
+      console.log(scoreCard.getScores());
+    }
+  };
+
+  return { startRound, initializeGame, startGame };
 })();
 
-gameFlow.initializeGame();
 gameFlow.startGame();
