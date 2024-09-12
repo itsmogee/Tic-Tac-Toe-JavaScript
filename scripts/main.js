@@ -9,24 +9,33 @@ const gameBoard = (() => {
 
   const checkWinCondition = () => {
     if (board[0][0] === board[0][1] && board[0][2] === board[0][0]) {
-      console.log("Winner");
-      return true;
-    } else if (board[0][0] === board[1][0] && board[2][0] === board[0][0]) {
-      console.log("Winner");
-      return true;
-    } else if (board[0][0] === board[1][1] && board[2][2] === board[0][0]) {
-      console.log("Winner");
-      return true;
-    } else if (board[0][0] === board[0][1] && board[0][2] === board[0][0]) {
-      console.log("Winner");
-      return true;
-    } else if (board[0][1] === board[1][1] && board[2][1] === board[0][1]) {
-      console.log("Winner");
-      return true;
-    } else if (board[1][0] === board[1][1] && board[1][2] === board[1][0]) {
-      console.log("Winner");
       return true;
     }
+    if (board[1][0] === board[1][1] && board[1][2] === board[1][0]) {
+      return true;
+    }
+    if (board[2][0] === board[2][1] && board[2][2] === board[2][0]) {
+      return true;
+    }
+    if (board[0][0] === board[1][0] && board[2][0] === board[0][0]) {
+      return true;
+    }
+    if (board[0][0] === board[1][0] && board[2][0] === board[0][0]) {
+      return true;
+    }
+    if (board[0][1] === board[1][1] && board[2][1] === board[0][1]) {
+      return true;
+    }
+    if (board[0][0] === board[1][1] && board[2][2] === board[0][0]) {
+      return true;
+    }
+    if (board[0][2] === board[1][1] && board[2][0] === board[0][2]) {
+      return true;
+    }
+    if (board[0][2] === board[1][2] && board[2][2] === board[0][2]) {
+      return true;
+    }
+    return false;
   };
 
   const clearBoard = () => {
@@ -40,10 +49,8 @@ const gameBoard = (() => {
   const updateMove = (playerMove, playerChar) => {
     for (let i = 0; i < 3; i++) {
       for (let j = 0; j < 3; j++) {
-        const element = board[i][j];
         if (board[i][j] === playerMove) {
           board[i][j] = playerChar;
-          console.log("Done");
           return true;
         }
       }
@@ -58,9 +65,9 @@ const gameBoard = (() => {
   };
 
   const getMoves = () => {
-    let moveList = [];
-    for (let i = 0; i < board[0].length; i++) {
-      for (let j = 0; j < board[(0, 0)].length; j++) {
+    const moveList = [];
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
         const element = board[i][j];
         switch (element) {
           case "1":
