@@ -226,7 +226,7 @@ const gameFlow = (() => {
 
   const startRound = () => {
     // initialize the game
-    initializeGame();
+    gameBoard.clearBoard();
     gameBoard.showBoard();
 
     let numMoves = 0;
@@ -250,6 +250,7 @@ const gameFlow = (() => {
 
   const startGame = () => {
     const numRounds = prompt("How many rounds would you like to play ?");
+    gameFlow.initializeGame();
 
     for (let i = 0; i < numRounds; i++) {
       gameFlow.startRound();
