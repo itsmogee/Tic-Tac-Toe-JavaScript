@@ -119,7 +119,7 @@ const player = (playerName, character) => {
   const getPlayerName = () => name;
 
   const play = () => {
-    let x = prompt("Make your move : ");
+    const x = prompt("Make your move : ");
     console.log(`Your move is ${x}`);
     return x;
   };
