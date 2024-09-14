@@ -226,6 +226,7 @@ const gameFlow = (() => {
 
   const startRound = () => {
     // initialize the game
+    gameFlow.initializeGame();
     gameBoard.clearBoard();
     gameBoard.showBoard();
 
@@ -248,17 +249,10 @@ const gameFlow = (() => {
     // update score cards
   };
 
-  const startGame = () => {
-    const numRounds = prompt("How many rounds would you like to play ?");
-    gameFlow.initializeGame();
-
-    for (let i = 0; i < numRounds; i++) {
-      gameFlow.startRound();
-      console.log(scoreCard.getScores());
-    }
-  };
-
-  return { startRound, initializeGame, startGame };
+  return { startRound, initializeGame };
 })();
 
-gameFlow.startGame();
+// Display Controller
+const displayController = (() => {})();
+
+gameFlow.startRound();
